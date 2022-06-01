@@ -7,18 +7,18 @@ class HumanPlayer
         @mark
     end
 
-    def get_position
+    def get_position(legal_positions)
         p "#{@mark}. Please enter a board position as two numbers with a space in between."
-        input_position = gets.chomp
-        arr = input_position.split
-        if arr.length != 2
-            raise ArgumentError "Too many or too few inputs"
-        end
-        arr.each do |ele|
-            if ele.to_i.to_s != ele
-                raise ArgumentError "Inputs can only be integers"
+        begin
+            input_position = gets.chomp.split
+            pos = input_position.map{ |ele| ele.to_i }
+            if !legal_positions.include?(pos)
+                raise "This is not a legal position."
             end
+            return pos
+        rescue
+            puts "Please try again. Make sure you are entering a legal position."
+            retry
         end
-        arr.map{ |ele| ele.to_i }
     end
 end

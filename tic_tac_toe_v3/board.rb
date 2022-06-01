@@ -71,4 +71,15 @@ class Board
     def empty_positions?
         @grid.flatten.any? { |ele| ele == "_" }
     end
+
+    def legal_positions
+        max = @grid.length - 1
+        legal_positions = []
+        @grid.each_with_index do |row, idx_1|
+            row.each_with_index do |ele, idx_2|
+                legal_positions << [idx_1, idx_2] if empty?([idx_1, idx_2])
+            end
+        end
+        legal_positions     
+    end
 end
